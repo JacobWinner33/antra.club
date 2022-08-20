@@ -5,7 +5,6 @@ import 'package:antra/views/verify_email_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'dart:developer' as devtools show log;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,12 +12,13 @@ void main() {
     MaterialApp(
       title: 'Antra',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.blueGrey,
       ),
       home: const HomePage(),
       routes: {
         '/login/': (context) => const LoginView(),
-        '/register/': (context) => const RegisterView()
+        '/register/': (context) => const RegisterView(),
+        '/MainView/': (context) => const MainView(),
       },
     ),
   );
@@ -71,7 +71,7 @@ class _MainViewState extends State<MainView> {
           onSelected: (value) async {
             switch (value) {
               case MenuAction.logout:
-                final shouldLogout = await ShowLogOutDialog(context);
+                final shouldLogout = await showLogOutDialog(context);
                 if (shouldLogout) {
                   await FirebaseAuth.instance.signOut();
                   Navigator.of(context).pushNamedAndRemoveUntil(
@@ -96,7 +96,7 @@ class _MainViewState extends State<MainView> {
   }
 }
 
-Future<bool> ShowLogOutDialog(BuildContext context) {
+Future<bool> showLogOutDialog(BuildContext context) {
   return showDialog<bool>(
       context: context,
       builder: ((context) {
@@ -113,6 +113,8 @@ Future<bool> ShowLogOutDialog(BuildContext context) {
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(true);
+                Navigator.of(context)
+                    .pushNamedAndRemoveUntil('/login/', (route) => false);
               },
               child: const Text('Log out'),
             ),
