@@ -1,3 +1,4 @@
+import 'package:antra/constants/routes.dart';
 import 'package:antra/firebase_options.dart';
 import 'package:antra/views/login_view.dart';
 import 'package:antra/views/register_view.dart';
@@ -16,9 +17,9 @@ void main() {
       ),
       home: const HomePage(),
       routes: {
-        '/login/': (context) => const LoginView(),
-        '/register/': (context) => const RegisterView(),
-        '/MainView/': (context) => const MainView(),
+        loginRoute: (context) => const LoginView(),
+        registerRoute: (context) => const RegisterView(),
+        mainViewRoute: (context) => const MainView(),
       },
     ),
   );
@@ -75,7 +76,7 @@ class _MainViewState extends State<MainView> {
                 if (shouldLogout) {
                   await FirebaseAuth.instance.signOut();
                   Navigator.of(context).pushNamedAndRemoveUntil(
-                    '/Login/',
+                    loginRoute,
                     (_) => false,
                   );
                 }
@@ -114,7 +115,7 @@ Future<bool> showLogOutDialog(BuildContext context) {
               onPressed: () {
                 Navigator.of(context).pop(true);
                 Navigator.of(context)
-                    .pushNamedAndRemoveUntil('/login/', (route) => false);
+                    .pushNamedAndRemoveUntil(loginRoute, (route) => false);
               },
               child: const Text('Log out'),
             ),
