@@ -1,9 +1,11 @@
+import 'package:antra/firebase_options.dart';
 import 'package:antra/services/auth/auth_user.dart';
 import 'package:antra/services/auth/auth_provider.dart';
 import 'package:antra/services/auth/auth_exceptions.dart';
 
 import 'package:firebase_auth/firebase_auth.dart'
     show FirebaseAuth, FirebaseAuthException;
+import 'package:firebase_core/firebase_core.dart';
 
 class FirebaseAuthProvider implements AuthProvider {
   @override
@@ -38,7 +40,6 @@ class FirebaseAuthProvider implements AuthProvider {
   }
 
   @override
-  // TODO: implement currentUser
   AuthUser? get currentUser {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
@@ -59,7 +60,7 @@ class FirebaseAuthProvider implements AuthProvider {
   }
 
   @override
-  Future<AuthUser> login({
+  Future<AuthUser> logIn({
     required String email,
     required String password,
   }) async {
@@ -95,5 +96,11 @@ class FirebaseAuthProvider implements AuthProvider {
     } else {
       throw UserNotLoggedInAuthException();
     }
+  }
+
+  @override
+  Future<void> initialize() async {
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
   }
 }
