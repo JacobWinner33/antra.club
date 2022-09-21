@@ -101,7 +101,7 @@ class OnBoardingView extends StatelessWidget {
                         image: DecorationImage(
                           fit: BoxFit.cover,
                           alignment: Alignment.bottomLeft,
-                          image: AssetImage('assets/img-onboarding.png'),
+                          image: AssetImage('assets/images/img-onboarding.png'),
                         ),
                       ),
                     ),
@@ -126,7 +126,7 @@ class OnBoardingView extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Constants.kWhiteColor.withOpacity(0.75),
-                      fontSize: screenHeight <= 667 ? 12 : 16,
+                      fontSize: screenHeight <= 667 ? 10 : 14,
                     ),
                   ),
                   SizedBox(

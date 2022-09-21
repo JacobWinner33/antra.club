@@ -257,7 +257,7 @@ class _LoginViewState extends State<LoginView> {
                       children: [
                         const Text(
                           'Not part of the club?',
-                          style: const TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.white),
                         ),
                         TextButton(
                           onPressed: () {
